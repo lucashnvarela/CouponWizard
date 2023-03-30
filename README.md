@@ -22,7 +22,15 @@ pip install -r requirements.txt
 
 ### Setting up the user credentials
 
-Before running the script, you must fill out the `user_credentials.json` file with either your Steam or Pearl Abyss account credentials. You can do this by editing the file directly or by running `setup.py`, which will prompt you to enter your account information and update the `user_credentials.json file` for you.
+In order to use the script, you must first provide your account credentials. This is done by filling out the `user_credentials.json` file with either your Steam or Pearl Abyss account information.
+
+To set up your account credentials, you can either run the `setup.py` file, which will guide you through the process and update the `user_credentials.json` file for you:
+
+```powershell
+python setup.py
+```
+
+Alternatively, you can directly edit the user_credentials.json file, which should have the following format:
 
 ```json
 {
@@ -46,7 +54,7 @@ To use CouponWizard, run `main.py` by executing the following command:
 python main.py
 ```
 
-CouponWizard checks for available coupons before logging in to your BlackDesert account. If there are no coupons available, the script will not log in and will stop the execution. However, if there are coupons available, the script will log in to your account and automatically redeem them for you.
+CouponWizard checks for available coupons before logging in to your BlackDesert account. If there are no new coupons available, the script will not log in and will stop the execution. However, if there are new coupons available, the script will log in to your account and automatically redeem them for you.
 
 **Note:** During the login process, you may need to complete additional authentication steps required by your account provider. If you fail to complete the required authentication, the script will not be able to log in to your account and redeem the coupons.
 
@@ -56,4 +64,4 @@ After the script redeems the coupons, a file named `log.json` will be updated to
 
 ## Privacy
 
-CouponWizard does not store or access your user credentials in any way during script execution. The script only uses your credentials for the purpose of logging in to your BlackDesert account and redeeming any available coupons. Additionally, CouponWizard does not collect any personal information about you or your account. These privacy measures help ensure the security and privacy of your BlackDesert account when using CouponWizard.
+CouponWizard does not store or access your user credentials in any way during execution. The credentials are only used to log in to your BlackDesert account and redeem any available coupons. Additionally, the script does not collect any personal information about you or your account. These privacy measures help ensure the security and privacy of your account.
