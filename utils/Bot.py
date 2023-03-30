@@ -201,7 +201,7 @@ class Bot:
 
     def pa_account_login(self, email: str, password: str) -> None:
         """ 
-        Login to Pear Abyss account using the provided email and password
+        Login to Pearl Abyss account using the provided email and password
 
         :param email: PA account email
         :param password: PA account password

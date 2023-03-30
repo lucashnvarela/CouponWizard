@@ -55,9 +55,9 @@ def main() -> None:
                 logging.info("Logging in to Steam account")
                 bot.steam_account_login(*user_credentials["steam"])
 
-            # Login in to Pear Abyss account using the provided email and password
+            # Login in to Pearl Abyss account using the provided email and password
             elif user_credentials["pearl_abyss"]:
-                logging.info("Logging in to Pear Abyss account")
+                logging.info("Logging in to Pearl Abyss account")
                 # TODO: Add support for PA account login
                 bot.pa_account_login(*user_credentials["pearl_abyss"])
 
