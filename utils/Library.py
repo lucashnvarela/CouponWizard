@@ -82,31 +82,32 @@ class Library:
         :returns: List with the user credentials
         """
 
+        steam_username, steam_password, steam_pp = list(
+            self.user_credentials["steam"].values())
+
+        pearl_abyss_email, pearl_abyss_password = list(
+            self.user_credentials["pearl_abyss"].values())
+
         email_pattern = re.compile(
             r"^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$")
 
-        steam_credentials = list(self.user_credentials["steam"].values())
-        pa_credentials = list(self.user_credentials["pearl_abyss"].values())
-
-        if sum(bool(value) for value in steam_credentials) >= 2:
-
-            steam_pp = self.user_credentials["steam"]["pp_pin"]
+        if steam_username and steam_password:
 
             if steam_pp:
                 if len(steam_pp) != 4:
-                    raise Exception("Invalid parental protection pin")
+                    raise Exception("Invalid parental protection pin.")
 
-            return {"steam": steam_credentials}
+            return {"steam": [steam_username, steam_password, steam_pp]}
 
-        elif sum(bool(value) for value in pa_credentials) == 2:
+        elif pearl_abyss_email and pearl_abyss_password:
 
-            if not re.match(email_pattern, self.user_credentials["pearl_abyss"]["email"]):
-                raise Exception("Invalid email address")
+            if not re.match(email_pattern, pearl_abyss_email):
+                raise Exception("Invalid email address.")
 
-            return {"pearl_abyss": pa_credentials}
+            return {"pearl_abyss": [pearl_abyss_email, pearl_abyss_password]}
 
         else:
-            raise Exception("No user credentials provided")
+            raise Exception("No valid credentials provided.")
 
     def save_user_credentials(self, user_credentials: dict) -> None:
         """ 
