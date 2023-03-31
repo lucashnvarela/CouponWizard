@@ -80,7 +80,7 @@ class Bot:
         # If the steam login page is unreachable,
         # raise an exception
         except TimeoutException:
-            raise Exception("Steam login page unreachable")
+            raise Exception("Steam login page unreachable.")
 
         try:
             # Wait for the login form to load
@@ -91,7 +91,7 @@ class Bot:
         # If the steam login form is not found,
         # raise an exception
         except TimeoutException:
-            raise Exception("Steam login form not found")
+            raise Exception("Steam login form not found.")
 
         # Fill in the login form with the provided username and password
         for login_input, login_data in zip(login_form, [username, password]):
@@ -107,10 +107,6 @@ class Bot:
                 method=expected_conditions.presence_of_all_elements_located(
                     locator=(By.CSS_SELECTOR, STEAM_SELECTORS["auth_page"])))
 
-            # If the authentication page is found,
-            # print login is successful
-            logging.info("Login successful")
-
         # If the authentication page is not found,
         # check for error message or login timeout
         except TimeoutException:
@@ -122,7 +118,7 @@ class Bot:
 
                 # If an error message is found,
                 # raise an exception
-                raise Exception("Invalid username or password")
+                raise Exception("Invalid username or password.")
 
             # If no error message is found,
             # check for login timeout
@@ -135,27 +131,28 @@ class Bot:
 
                     # If login timeout is found,
                     # raise an exception
-                    raise Exception("Login timeout, please try again later")
+                    raise Exception("Exceeded maximum login attempts.")
 
                 # If either error message or login timeout is not found,
                 # raise an exception
                 except TimeoutException:
-                    raise Exception("Authentication page unreachable")
+                    raise Exception("Authentication page unreachable.")
 
         try:
-            logging.info("Waiting for authentication confirmation")
+            logging.info(
+                "Authentication required. Awaiting confirmation...")
 
             # Wait for the authentication to be accepted
             self.wait.until(
                 method=expected_conditions.presence_of_element_located(
                     locator=(By.CSS_SELECTOR, STEAM_SELECTORS["auth_done"])))
 
-            logging.info("Authentication successful")
+            logging.info("Login successfully. Authentication accepted.")
 
         # If the authentication is not accepted,
         # raise an exception
         except TimeoutException:
-            raise Exception("Authentication timeout")
+            raise Exception("Authentication timeout.")
 
         try:
             # Wait for the parental protection form to load
@@ -166,7 +163,7 @@ class Bot:
             # If no parental protection pin is provided,
             # raise an exception
             if not pp_pin:
-                raise Exception("Parental protection pin not provided")
+                raise Exception("Parental protection pin not provided.")
 
             # Fill in the parental protection pin
             pp_input.send_keys(pp_pin)
@@ -178,7 +175,7 @@ class Bot:
             # If the parental protection pin is incorrect,
             # raise an exception
             if len(pp_error.text) > 0:
-                raise Exception("Parental protection pin incorrect")
+                raise Exception("Parental protection pin incorrect.")
 
             # Click the submit button
             self.webdriver.find_element(
@@ -248,7 +245,7 @@ class Bot:
 
             # If no status was found,
             # raise an exception
-            raise Exception("Coupon redeem timeout")
+            raise Exception("Exceded maximum redeem attempts.")
 
         # Navigate to the coupon redeem page
         self.webdriver.get(url=self.COUPON_REDEEM_PAGE)
@@ -267,7 +264,7 @@ class Bot:
         # If the coupon redeem page is unreachable,
         # raise an exception
         except TimeoutException:
-            raise Exception("Coupon redeem page unreachable")
+            raise Exception("Coupon redeem page unreachable.")
 
         # Find the input fields for the coupon code
         coupon_form = self.webdriver.find_elements(
@@ -303,4 +300,4 @@ class Bot:
         # If the confirmation page is unreachable,
         # raise an exception
         except TimeoutException:
-            raise Exception("Redeem confirmation page unreachable")
+            raise Exception("Redeem confirmation page unreachable.")

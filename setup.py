@@ -65,11 +65,11 @@ def setup() -> None:
 
         try:
             switch[account_provider]()
-            logging.info("user_credentials.json updated")
+            logging.info("User credentials file updated.")
             break
 
         except KeyError:
-            logging.error("Invalid option")
+            logging.error("Invalid option.")
 
 
 if __name__ == "__main__":
